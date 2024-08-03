@@ -85,7 +85,7 @@ namespace Glasstop
                     {
                         // Pick one of the search queries at random.
                         string searchQuery = null;
-                        var queries = Settings.SearchQueries.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        var queries = Settings.SearchQueries.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); 
                         if(queries.Length > 0)
                         {
                             searchQuery = queries[s_random.Next(queries.Length)];
