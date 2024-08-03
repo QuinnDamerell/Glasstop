@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Glasstop (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Glasstop (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
