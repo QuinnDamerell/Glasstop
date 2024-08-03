@@ -27,6 +27,8 @@ namespace Glasstop
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        static readonly Random s_random = new Random();
+
         public MainPage()
         {
             InitializeComponent();
@@ -35,7 +37,7 @@ namespace Glasstop
             Settings.TrimHistoryOnAppStart();
 
             // Load the current image if there is one, otherwise, load a new random image.
-            LoadImage(Settings.GetCurrentImageId());
+            LoadImage(Settings.CurrentImageId);
         }
 
         private void NextImage_Click(object sender, RoutedEventArgs e)
@@ -81,7 +83,26 @@ namespace Glasstop
                     UnsplashPhotoContext c = null;
                     if(id == null)
                     {
-                        c = await Unsplash.GetRandomImage(new List<string>() { "water", "nature", "sky" });
+                        // Pick one of the search queries at random.
+                        string searchQuery = null;
+                        var queries = Settings.SearchQueries.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        if(queries.Length > 0)
+                        {
+                            searchQuery = queries[s_random.Next(queries.Length)];
+                            searchQuery = searchQuery.Trim();
+                        }
+                        if(searchQuery == null)
+                        {
+                            searchQuery = "wallpapers";
+                        }
+                        else
+                        {
+                            searchQuery = "wallpapers " + searchQuery;
+                        }
+                        searchQuery = "water, nature, mountain";
+
+                        // Get the image.
+                        c = await Unsplash.GetRandomImage(searchQuery);
                         isNewImage = true;
                     }
                     else
@@ -109,7 +130,7 @@ namespace Glasstop
                     }
 
                     // Always set as the current.
-                    Settings.SetCurrentImageId(c.Id);
+                    Settings.CurrentImageId = c.Id;
 
                     // Show the image.
                     DispatcherQueue.TryEnqueue(() =>
@@ -138,5 +159,31 @@ namespace Glasstop
                 }
             });
         }
+
+        #region Image Settings UI
+
+        private void ImageSettingsOpen_Click(object sender, RoutedEventArgs e)
+        {
+            // Populate the UI with the current settings.
+            ui_imageSettingsSearchQueries.Text = Settings.SearchQueries;
+            ui_imageSettings.Visibility = Visibility.Visible;
+        }
+
+        private void ImageSettingsClose_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.SearchQueries = ui_imageSettingsSearchQueries.Text;
+            ui_imageSettings.Visibility = Visibility.Collapsed;
+        }
+
+        private void ImageRatioButton_Click(object sender, RoutedEventArgs e)
+        {
+         
+        }
+
+        
+
+
+
+        #endregion
     }
 }

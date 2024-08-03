@@ -8,71 +8,128 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:CommunityToolkit.WinUI.Media"
     xmlns:ani="using:CommunityToolkit.WinUI.Animations"
+
     mc:Ignorable="d">
 
-
     <Grid>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Glasstop" FontSize="80"/>
-        </Grid>
-        <Image Grid.Row="1" x:Name="ui_Image" Stretch="UniformToFill" Margin="20">
-            <!--<media:UIElementExtensions.VisualFactory>
-                <media:PipelineVisualFactory>
-                    <media:BlurEffect x:Name="ImageBlurEffect" IsAnimatable="True"/>
-                </media:PipelineVisualFactory>
-            </media:UIElementExtensions.VisualFactory>
-            <ani:Explicit.Animations>
-                <ani:AnimationSet x:Name="BlurAnimation">
-                    <ani:BlurEffectAnimation From="0"
-                                        To="4"
-                                        Duration="0:0:0.2"
-                                        EasingType="Linear"
-                                        Target="{Binding ElementName=ImageBlurEffect}"
-                                        EasingMode="EaseOut"/>
-                </ani:AnimationSet>
-                <ani:AnimationSet x:Name="UnBlurAnimation">
-                    <ani:BlurEffectAnimation From="4"
-                                        To="0"
-                                        Duration="0:0:0.2"
-                                        EasingType="Linear"
-                                        Target="{Binding ElementName=ImageBlurEffect}"
-                                        EasingMode="EaseOut"/>
-                </ani:AnimationSet>
-            </ani:Explicit.Animations>-->
-        </Image>
-        <Grid Grid.Row="2" VerticalAlignment="Center" Background="#88111111">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="By Quinn Damerell - Seattle, WA"/>
-            </Grid>
-            <Button Grid.Column="1" x:Name="ui_LastImage" Click="LastImage_Click">Last Image</Button>
-            <Button Grid.Column="2" x:Name="ui_NextImage" Click="NextImage_Click" Margin="20,0">Next Image</Button>
-            <ProgressRing Grid.Column="3" x:Name="ui_ImageLoadingRing" Width="25" Height="25"/>
-            <Grid Grid.Column="3" x:Name="ui_ErrorHolder" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock x:Name="ui_ErrorText" Text="" Foreground="#FAA0A0" />
-            </Grid>
+        <!-- The main UI Grid -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-            <Button Grid.Column="5" x:Name="test" Margin="20,0">Image Filters</Button>
-            <Button Grid.Column="6" x:Name="dddd">Background Image Update</Button>
-            <Button Grid.Column="7" x:Name="dd" Margin="20,0">About</Button>
+            <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Glasstop" FontSize="80"/>
+            </Grid>
+            <Image Grid.Row="1" x:Name="ui_Image" Stretch="Uniform" Margin="20">
+                <!--<media:UIElementExtensions.VisualFactory>
+                    <media:PipelineVisualFactory>
+                        <media:BlurEffect x:Name="ImageBlurEffect" IsAnimatable="True"/>
+                    </media:PipelineVisualFactory>
+                </media:UIElementExtensions.VisualFactory>
+                <ani:Explicit.Animations>
+                    <ani:AnimationSet x:Name="BlurAnimation">
+                        <ani:BlurEffectAnimation From="0"
+                                            To="4"
+                                            Duration="0:0:0.2"
+                                            EasingType="Linear"
+                                            Target="{Binding ElementName=ImageBlurEffect}"
+                                            EasingMode="EaseOut"/>
+                    </ani:AnimationSet>
+                    <ani:AnimationSet x:Name="UnBlurAnimation">
+                        <ani:BlurEffectAnimation From="4"
+                                            To="0"
+                                            Duration="0:0:0.2"
+                                            EasingType="Linear"
+                                            Target="{Binding ElementName=ImageBlurEffect}"
+                                            EasingMode="EaseOut"/>
+                    </ani:AnimationSet>
+                </ani:Explicit.Animations>-->
+            </Image>
+            <Grid Grid.Row="2" VerticalAlignment="Center" Background="#88111111">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                    <TextBlock Text="By Quinn Damerell - Seattle, WA"/>
+                </Grid>
+                <Button Grid.Column="1" x:Name="ui_LastImage" Click="LastImage_Click">Last Image</Button>
+                <Button Grid.Column="2" x:Name="ui_NextImage" Click="NextImage_Click" Margin="20,0">Next Image</Button>
+                <ProgressRing Grid.Column="3" x:Name="ui_ImageLoadingRing" Width="25" Height="25"/>
+                <Grid Grid.Column="3" x:Name="ui_ErrorHolder" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="ui_ErrorText" Text="" Foreground="#FAA0A0" />
+                </Grid>
+
+                <Button Grid.Column="5" x:Name="test" Margin="20,0" Click="ImageSettingsOpen_Click">Image Filters</Button>
+                <Button Grid.Column="6" x:Name="dddd">Preferences</Button>
+                <Button Grid.Column="7" x:Name="dd" Margin="20,0">About</Button>
+            </Grid>
         </Grid>
-    </Grid>
+
+        <!-- The image settings overlay -->
+        <Grid x:Name="ui_imageSettings" Background="#DD111111" Visibility="Collapsed" >
+            <!--<Grid.Background>
+                <media:BackdropBlurBrush/>
+            </Grid.Background>-->
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="0,15" Text="Image Search Options" FontSize="30" />
+
+                <TextBlock Grid.Row="1" Text="Search Query" Margin="0,0,20,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="ui_imageSettingsSearchQueries" Width="300" Text="Mountians Purple, Nature, Water"/>
+
+                <TextBlock Grid.Row="2" Text="Orientation" Margin="0,20,0,20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <DropDownButton Grid.Row="2" Grid.Column="1">
+                    <TextBlock Text="Horizontal"/>
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                            <MenuFlyoutItem Text="Horizontal" Tag="Horizontal" Click="ImageRatioButton_Click"/>
+                            <MenuFlyoutItem Text="Portrait" Tag="Portrait" Click="ImageRatioButton_Click"/>
+                            <MenuFlyoutItem Text="Square" Tag="Square" Click="ImageRatioButton_Click"/>
+                            <MenuFlyoutItem Text="Any" Tag="Any" Click="ImageRatioButton_Click"/>
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+
+                <TextBlock Grid.Row="3" Text="Content Filtering" Margin="0,0,20,0"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <ToggleSwitch Grid.Row="3" Grid.Column="1"/>
+
+                <Button Grid.Row="4" Grid.ColumnSpan="2" Margin="0,20" Content="Close" HorizontalAlignment="Stretch" Click="ImageSettingsClose_Click" />
+
+
+            </Grid>
+            
+
+        </Grid>
+    </Grid> 
+
 
 
     <!--<ani:Explicit.Animations>

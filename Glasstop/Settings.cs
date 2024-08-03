@@ -10,33 +10,52 @@ namespace Glasstop
 {
     internal static class Settings
     {
-        const string c_CurrentImageIdKey = "CurrentImageId";
-        const string c_ImageIdHistoryKey = "ImageIdHistory";
-
-        // Returns the current image id, if there is one.
-        public static string GetCurrentImageId()
+        // Returns the current image or null if there is none
+        public static string CurrentImageId
         {
-            var v = Windows.Storage.ApplicationData.Current.LocalSettings.Values[c_CurrentImageIdKey];
-            if(v == null)
+            get
             {
-                return null;
+                var v = Windows.Storage.ApplicationData.Current.LocalSettings.Values[c_CurrentImageIdKey];
+                if(v == null)
+                {
+                    return null;
+                }
+                return v.ToString();
             }
-            return v.ToString();
+            set
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values[c_CurrentImageIdKey] = value;
+            }
         }
+        const string c_CurrentImageIdKey = "CurrentImageId";
 
-
-        // Sets the current image id, if there is one.
-        public static void SetCurrentImageId(string imageId)
+        // Returns the search queries string or the default
+        public static string SearchQueries
         {
-            Windows.Storage.ApplicationData.Current.LocalSettings.Values[c_CurrentImageIdKey] = imageId;
+            get
+            {
+                var v = Windows.Storage.ApplicationData.Current.LocalSettings.Values[c_SearchQueiresKey];
+                if(v == null)
+                {
+                    return "Mountians Purple, Nature Water";
+                }
+                return v.ToString();
+            }
+            set
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values[c_SearchQueiresKey] = value;
+            }
         }
+        const string c_SearchQueiresKey = "SearchQueries";
+
+
 
 
         // From the current image ID, this returns the next image.
         // If this is the most recent image, it returns null.
         public static string GetNextImageId()
         {
-            var currentId = GetCurrentImageId();
+            var currentId = CurrentImageId;
             var list = GetImageIdHistory();
             if(list == null || currentId == null)
             {
@@ -62,7 +81,7 @@ namespace Glasstop
         // If this is the last image, it returns null.
         public static string GetLastImageId()
         {
-            var currentId = GetCurrentImageId();
+            var currentId = CurrentImageId;
             var list = GetImageIdHistory();
             if(list == null || currentId == null)
             {
@@ -79,6 +98,9 @@ namespace Glasstop
             }
             return lastImageId;
         }
+
+        const string c_ImageIdHistoryKey = "ImageIdHistory";
+
 
 
         // Adds this image to the image id history, if it's not already there.

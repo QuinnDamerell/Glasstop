@@ -20,25 +20,16 @@ namespace Glasstop
 
 
         // Returns a random photo context from the API.
-        public static async Task<UnsplashPhotoContext> GetRandomImage(List<string> query = null)
+        public static async Task<UnsplashPhotoContext> GetRandomImage(string searchQuery)
         {
             try
             {
                 // Note that we DONT specify the count arg, or the result is an array, even if we say 1.
                 // By default the API will return 1 image, which is what HandleImageContextResponse expects.
                 var args = new Dictionary<string, string>();
-                if(query != null)
+                if(searchQuery != null)
                 {
-                    var q = string.Empty;
-                    foreach(var s in query)
-                    {
-                        if(q.Length != 0)
-                        {
-                            q += ",";
-                        }
-                        q += s;
-                    }
-                    args["query"] = q;
+                    args["query"] = searchQuery;
                 }
 
                 // Make the request.
